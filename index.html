@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Space Image Slider - Smooth Sliding Fixed</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #000;
+    }
+
+    .slider {
+      position: relative;
+      width: 90%;
+      max-width: 800px;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+    }
+
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .slides img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      flex: 0 0 100%; /* Very important fix! Each image takes full width of slider */
+    }
+
+    .navigation {
+      position: absolute;
+      width: 100%;
+      top: 50%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      padding: 0 10px;
+    }
+
+    .prev, .next {
+      background: rgba(255, 255, 255, 0.3);
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 50%;
+      font-size: 18px;
+    }
+
+    .prev:hover, .next:hover {
+      background: rgba(255, 255, 255, 0.6);
+    }
+
+    @media (max-width: 600px) {
+      .slider {
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="slider">
+    <div class="slides">
+      <img src="image1.jpg" alt="space" />
+      <img src="image2.jpg" alt="Galaxy" />
+      <img src="image3.jpg.jpg" alt="ISRO" />
+      <img src="image4.jpg" alt="ISRO" />
+      <img src="image5.jpg" alt="Earth from space" />
+    </div>
+    <div class="navigation">
+      <button class="prev">&#10094;</button>
+      <button class="next">&#10095;</button>
+    </div>
+  </div>
+
+  <script>
+    const slides = document.querySelector('.slides');
+    const images = document.querySelectorAll('.slides img');
+    const prevBtn = document.querySelector('.prev');
+    const nextBtn = document.querySelector('.next');
+
+    let counter = 0;
+    const totalImages = images.length;
+
+    nextBtn.addEventListener('click', () => {
+      counter = (counter + 1) % totalImages;
+      updateSlide();
+    });
+
+    prevBtn.addEventListener('click', () => {
+      counter = (counter - 1 + totalImages) % totalImages;
+      updateSlide();
+    });
+
+    function updateSlide() {
+      slides.style.transform = `translateX(-${counter * 100}%)`;
+    }
+  </script>
+
+</body>
+</html>
